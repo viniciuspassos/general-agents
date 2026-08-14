@@ -11,7 +11,7 @@ A small catalog of general-purpose custom agents for Codex.
 └── agents/
     ├── generalist.toml
     ├── frontend.toml
-    ├── backend-node.toml
+    ├── backend-developer.toml
     └── devops.toml
 ```
 
