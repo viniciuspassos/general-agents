@@ -1,4 +1,4 @@
-# Codex agents
+# Agents and skills
 
 A small catalog of general-purpose custom agents and reusable skills.
 
@@ -9,11 +9,11 @@ A small catalog of general-purpose custom agents and reusable skills.
 ├── AGENTS.md
 ├── README.md
 ├── agents/
-    ├── generalist.toml
-    ├── frontend.toml
-    ├── backend-developer.toml
-    ├── backend-node.toml
-    └── devops.toml
+│   ├── generalist.toml
+│   ├── frontend.toml
+│   ├── backend-developer.toml
+│   ├── backend-node.toml
+│   └── devops.toml
 └── skills/
     └── validate-implementation-knowledge/
         └── SKILL.md
