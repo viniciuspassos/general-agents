@@ -15,6 +15,8 @@ A small catalog of general-purpose custom agents and reusable skills.
 │   ├── backend-node.toml
 │   └── devops.toml
 └── skills/
+    ├── learning/
+    │   └── SKILL.md
     └── validate-implementation-knowledge/
         └── SKILL.md
 ```
@@ -46,6 +48,10 @@ catalog directly from `agents/`. A file such as `frontend-agent.md` would be
 ordinary documentation unless referenced by another instruction mechanism.
 
 ## Skills
+
+`learning` teaches technical and nontechnical concepts in a short, interactive
+lesson. It checks understanding one question at a time and adapts the next step
+to your answers. Invoke it as `$learning` in Codex or `/learning` in Claude Code.
 
 `validate-implementation-knowledge` guides a question-by-question check of your
 understanding of a task implemented by an AI agent. It uses the task and actual
