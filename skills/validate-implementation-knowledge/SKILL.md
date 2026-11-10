@@ -1,42 +1,38 @@
 ---
 name: validate-implementation-knowledge
-description: Assess a user's understanding of a task implemented by an AI agent through a guided conversation grounded in the task and the actual code changes.
+description: Teach and check a user's understanding of a task implemented by an AI agent in a short, staged conversation grounded in the task and actual code changes.
 ---
 
 # Validate implementation knowledge
 
-Help the user understand what an AI agent implemented, why the solution works, and how it behaves in relevant scenarios. Assess the user's reasoning through a conversation, one question at a time. This is a knowledge check, not a code review or a certification.
+Guide the user through the implementation as an interactive lesson. Help them explain the task, the solution, and its trade-offs in their own words. Keep the teaching and the knowledge check together; do not open with a cold quiz question.
 
-## Prepare
+## Prepare the lesson
 
-1. Identify the task, its acceptance criteria, and the corresponding implementation. Use the available task description, diff, changed files, tests, and documentation.
-2. Read enough of the implementation to distinguish observed behavior from intended behavior. Do not assume the agent's implementation is correct because the task was marked complete.
-3. If the task or the relevant changes cannot be identified reliably, ask for the missing link, diff, or path before asking implementation-specific questions.
-4. Choose a short sequence of questions covering the task's purpose, the main flow, key design decisions, and the most important failure or edge cases. Adjust the depth to the change and the user's answers.
+1. Identify the task or PR the user means, its acceptance criteria, the changed code, and relevant tests or documentation. Read enough to separate the requested behavior from what was actually implemented.
+2. If the task or changes are ambiguous, ask for the missing reference before teaching implementation details.
+3. Plan about five short stages, adjusted to the change: purpose and user behavior, main flow, key implementation decisions, failure or edge cases, and an applied scenario. Skip a stage if it has no meaningful content; split one if the change is complex.
+4. Use the language of the ongoing conversation. A skill file or invocation written in English does not override an established preference for another language.
 
-## Guide the conversation
+## Open the session
 
-- Briefly identify the implementation being discussed, then ask the first question. If the target is ambiguous, clarify it before starting.
-- Ask one question at a time and wait for the user's answer.
-- Begin with the goal and observable behavior. Move toward code flow, design decisions, and edge cases as the user demonstrates understanding.
-- Prefer questions that ask the user to explain, predict behavior, or diagnose a scenario. Use multiple choice only when it helps introduce a concept.
-- Do not reveal an answer before the user's attempt. If the user is stuck, give a small hint and another opportunity.
-- Ground questions in concrete parts of the implementation. Refer to files or functions when that helps the user navigate.
-- Adapt each next question to the answer: explore uncertainty and avoid repeating concepts the user has already explained well.
+In the first reply, briefly name the task or PR and explain the feature in plain language. Show the stage plan and progress, such as `Stage 1 of 5 — Purpose`. Give a small piece of verified context for the first stage, then ask **one** accessible question. Start with what the task was trying to accomplish or what the user would observe. Save detailed code paths and tricky edge cases for later stages.
 
-## Give feedback
+Do not merely announce that the skill is running and ask an isolated scenario question. Do not reveal the answer to the question in the introduction.
 
-After each answer:
+## Run each stage
 
-1. State what is correct, partly correct, or incorrect, with a concrete reason.
-2. Explain the main gap using the task and implementation as evidence. Separate observed facts from inference.
-3. When useful, offer a short scenario that tests the same concept from another angle.
-4. Continue with the next question only after giving feedback.
+- Ask one question and wait for the user's answer. Prefer explanation, prediction, or diagnosis over recall of names and line numbers. Use multiple choice when it makes a new concept easier to enter.
+- After the answer, first say what the user got right. Then correct the main gap with a concise explanation tied to the task or code. Distinguish observed behavior from inference.
+- If the answer shows a meaningful misunderstanding, offer a small hint or simpler follow-up within the same stage before moving on. Do not mark a stage complete based on a guess or a multiple-choice letter alone when reasoning matters.
+- When the stage is understood, mark it complete, introduce the next stage with a short explanation or concrete example, and ask its single question. Make the transition visible so the user can follow their progress.
+- Adapt depth and pace to the user's answers. Explain unfamiliar concepts before testing their application; avoid repeating concepts they have already explained well.
+- Link to relevant files or functions when they help the user inspect the implementation. Keep references selective and explain what each reference supports.
 
-If you find a possible defect or a mismatch with the task, describe it as something to investigate. Do not teach it as an intended or correct design decision.
+If the code may contain a defect or differ from the task, call it an open finding to investigate. Do not teach it as an intended or correct design decision.
 
-## Finish
+## Close the session
 
-Summarize what the user demonstrated, what still needs review, and the most useful files or code sections to revisit. If a significant gap remains, offer one practical follow-up question or exercise. Base the assessment on the user's explanations and reasoning; multiple-choice answers alone do not establish mastery.
+Summarize the stages completed, what the user demonstrated, and the concepts that need another pass. Point to the most useful code sections to revisit. Offer one practical follow-up exercise for any important gap. Do not claim mastery based only on multiple-choice answers.
 
-Inspect the task, code, and tests as needed for this conversation. Do not change the implementation unless the user explicitly asks you to.
+Inspect the implementation as needed for this conversation. Do not modify code unless the user explicitly asks you to.
